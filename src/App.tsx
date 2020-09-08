@@ -1,14 +1,21 @@
 import React from 'react';
-import TimerButton from './components/TimerButton';
+import styled from 'styled-components';
+import TimerButton from './components/TimerButton/TimerButton';
 import { Normalize } from 'styled-normalize';
+import Grid from './components/Grid/Grid';
 import 'antd/dist/antd.css';
+
+const AppContainer = styled.div`
+  margin: 0 200px;
+`;
 
 const App = () => (
   <>
     <Normalize />
-    <div className="App">
-      <TimerButton minutes={2} seconds={3}></TimerButton>
-    </div>
+    <AppContainer>
+      <TimerButton minutes={0} seconds={4}></TimerButton>
+      <Grid></Grid>
+    </AppContainer>
   </>
 );
 
