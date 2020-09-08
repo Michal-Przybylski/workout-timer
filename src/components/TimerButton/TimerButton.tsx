@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import Countdown from 'react-countdown';
 import { FieldTimeOutlined } from '@ant-design/icons';
-import { tallyMiliseconds } from '../utils/common';
+import { tallyMiliseconds } from '../../utils/common';
 import { ButtonContent, Timebox, StyledButton } from './TimerButton.sc';
 import { Props, RendererProps } from './TimerButton.types';
 
