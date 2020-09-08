@@ -1,53 +1,43 @@
-import React, {FC, useState, useEffect} from 'react';
-import styled from 'styled-components';
+import React, { FC, useState, useEffect } from 'react';
 import Countdown from 'react-countdown';
-import { Button } from 'antd';
 import { FieldTimeOutlined } from '@ant-design/icons';
+import { tallyMiliseconds } from '../utils/common';
+import { ButtonContent, Timebox, StyledButton } from './TimerButton.sc';
+import { Props, RendererProps } from './TimerButton.types';
 
-type Props = {
-  minutes: number;
-  seconds: number;
-};
+const renderer = ({ minutes, seconds }: RendererProps) => (
+  <span>{minutes * 60 + seconds}</span>
+);
 
-type RendererProps = {
-  minutes: number;
-  seconds: number;
-}
-
-const tallyMiliseconds = (minutes = 0,seconds:number) => (minutes*60+seconds)*1000;
-
-// Renderer callback with condition
-const renderer = ({ minutes, seconds }: RendererProps) => <span>{minutes * 60 + seconds}</span>;
-
-const TimerButton: FC<Props> = ({minutes,seconds}) => {
+const TimerButton: FC<Props> = ({ minutes, seconds }) => {
   const [isTimerOn, setIsTimerOn] = useState(false);
-  const [initialTimeInMS, setInitialTimeInMS] = useState(0)
+  const [initialTimeInMS, setInitialTimeInMS] = useState(0);
 
-  useEffect(()=>{
-    setInitialTimeInMS(tallyMiliseconds(minutes,seconds));
-  }, [minutes,seconds])
+  useEffect(() => {
+    setInitialTimeInMS(tallyMiliseconds(minutes, seconds));
+  }, [minutes, seconds]);
 
   return (
-    <Button
+    <StyledButton
       type="primary"
-      // icon={<FieldTimeOutlined />}
-      // loading={isTimerOn}
+      icon={<FieldTimeOutlined />}
+      loading={isTimerOn}
       onClick={() => setIsTimerOn(true)}
     >
-      <p>
-        {minutes} min {seconds} sec
-      </p>
-      {isTimerOn
-        && (
+      <ButtonContent>
+        <Timebox>
+          {minutes} min {seconds} sec
+        </Timebox>
+        {isTimerOn && (
           <Countdown
             date={Date.now() + initialTimeInMS}
             renderer={renderer}
             onComplete={() => setIsTimerOn(false)}
           />
-        )
-      }
-    </Button>
-  )
-}
+        )}
+      </ButtonContent>
+    </StyledButton>
+  );
+};
 
 export default TimerButton;
