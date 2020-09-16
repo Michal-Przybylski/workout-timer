@@ -1,11 +1,6 @@
 import React, { FC, Children, ReactNode } from 'react';
-import { Col } from 'antd';
 import { Props } from './GridCols.types';
-import styled from 'styled-components';
-
-const StyledCol = styled(Col)`
-  height: 150px;
-`;
+import { StyledCol } from './GridCols.sc';
 
 const GridCols: FC<Props> = ({
   xs = 24,
