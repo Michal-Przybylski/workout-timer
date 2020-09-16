@@ -10,7 +10,7 @@ const countdownRenderer: CountdownProps['renderer'] = ({
   seconds,
 }) => <span>{minutes * 60 + seconds} sec</span>;
 
-const TimerButton: FC<Props> = ({ ms = 30000, disabled }) => {
+const TimerButton: FC<Props> = ({ ms = 30000, ...rest }) => {
   const [isTimerOn, setIsTimerOn] = useState(false);
   const { minutes, seconds } = msToHMS(ms);
 
@@ -20,7 +20,7 @@ const TimerButton: FC<Props> = ({ ms = 30000, disabled }) => {
       icon={isTimerOn ? <LoadingOutlined /> : <FieldTimeOutlined />}
       onClick={() => setIsTimerOn(!isTimerOn)}
       block
-      disabled={disabled}
+      {...rest}
     >
       <Timebox>
         {minutes} min {seconds} sec
