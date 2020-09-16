@@ -3,12 +3,10 @@ import { Button } from 'antd';
 
 export const StyledButton = styled(Button)`
   height: 100%;
-  width: 100%;
   border-radius: 5px;
-`;
-
-export const ButtonContent = styled.div`
-  height: 45px;
+  &::before {
+    opacity: 0;
+  }
 `;
 
 export const Timebox = styled.p`

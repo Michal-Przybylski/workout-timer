@@ -1,41 +1,37 @@
-import React, { FC, useState, useEffect } from 'react';
-import Countdown from 'react-countdown';
-import { FieldTimeOutlined } from '@ant-design/icons';
-import { tallyMiliseconds } from '../../utils/common';
-import { ButtonContent, Timebox, StyledButton } from './TimerButton.sc';
-import { Props, RendererProps } from './TimerButton.types';
+import React, { FC, useState } from 'react';
+import Countdown, { CountdownProps } from 'react-countdown';
+import { FieldTimeOutlined, LoadingOutlined } from '@ant-design/icons';
+import { msToHMS } from '../../utils/common';
+import { Timebox, StyledButton } from './TimerButton.sc';
+import { Props } from './TimerButton.types';
 
-const renderer = ({ minutes, seconds }: RendererProps) => (
-  <span>{minutes * 60 + seconds}</span>
-);
+const countdownRenderer: CountdownProps['renderer'] = ({
+  minutes,
+  seconds,
+}) => <span>{minutes * 60 + seconds} sec</span>;
 
-const TimerButton: FC<Props> = ({ minutes, seconds }) => {
+const TimerButton: FC<Props> = ({ ms = 30000, disabled }) => {
   const [isTimerOn, setIsTimerOn] = useState(false);
-  const [initialTimeInMS, setInitialTimeInMS] = useState(0);
-
-  useEffect(() => {
-    setInitialTimeInMS(tallyMiliseconds(minutes, seconds));
-  }, [minutes, seconds]);
+  const { minutes, seconds } = msToHMS(ms);
 
   return (
     <StyledButton
       type="primary"
-      icon={<FieldTimeOutlined />}
-      loading={isTimerOn}
-      onClick={() => setIsTimerOn(true)}
+      icon={isTimerOn ? <LoadingOutlined /> : <FieldTimeOutlined />}
+      onClick={() => setIsTimerOn(!isTimerOn)}
+      block
+      disabled={disabled}
     >
-      <ButtonContent>
-        <Timebox>
-          {minutes} min {seconds} sec
-        </Timebox>
-        {isTimerOn && (
-          <Countdown
-            date={Date.now() + initialTimeInMS}
-            renderer={renderer}
-            onComplete={() => setIsTimerOn(false)}
-          />
-        )}
-      </ButtonContent>
+      <Timebox>
+        {minutes} min {seconds} sec
+      </Timebox>
+      {isTimerOn && (
+        <Countdown
+          date={Date.now() + ms}
+          renderer={countdownRenderer}
+          onComplete={() => setIsTimerOn(false)}
+        />
+      )}
     </StyledButton>
   );
 };

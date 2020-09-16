@@ -1,9 +1,5 @@
-export type Props = {
-  minutes: number;
-  seconds: number;
-};
+import { ButtonProps } from 'antd/lib/button';
 
-export type RendererProps = {
-  minutes: number;
-  seconds: number;
+export type Props = Pick<ButtonProps, 'disabled'> & {
+  ms?: number;
 };

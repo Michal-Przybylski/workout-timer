@@ -16,16 +16,15 @@ const App = () => (
     <AppContainer>
       <GridRow>
         <GridCols>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
-          <TimerButton minutes={0} seconds={4}></TimerButton>
+          <TimerButton ms={3000}></TimerButton>
+          <TimerButton ms={30000}></TimerButton>
+          <TimerButton ms={60000}></TimerButton>
+          <TimerButton ms={90000}></TimerButton>
+          <TimerButton ms={120000}></TimerButton>
+          <TimerButton ms={240000}></TimerButton>
+          <TimerButton></TimerButton>
+          <TimerButton></TimerButton>
+          <TimerButton></TimerButton>
         </GridCols>
       </GridRow>
     </AppContainer>

@@ -1,13 +1,10 @@
 import React, { FC, Children, ReactNode } from 'react';
 import { Col } from 'antd';
 import { Props } from './GridCols.types';
-// import TimerButton from '../TimerButton/TimerButton';
 import styled from 'styled-components';
 
 const StyledCol = styled(Col)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 150px;
 `;
 
 const GridCols: FC<Props> = ({
