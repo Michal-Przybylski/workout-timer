@@ -1,10 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import TimerButton from './components/TimerButton/TimerButton';
 import { Normalize } from 'styled-normalize';
 import GridRow from './components/GridRow/GridRow';
 import GridCols from './components/GridCols/GridCols';
 import 'antd/dist/antd.css';
+
+const GlobalStyles = createGlobalStyle`
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+`;
 
 const AppContainer = styled.div`
   margin: 100px 100px;
@@ -13,6 +29,7 @@ const AppContainer = styled.div`
 const App = () => (
   <>
     <Normalize />
+    <GlobalStyles />
     <AppContainer>
       <GridRow>
         <GridCols>
