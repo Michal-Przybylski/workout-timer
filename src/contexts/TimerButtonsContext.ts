@@ -1,14 +1,14 @@
 import React, { createContext } from 'react';
 
-export type Timer = {
+export type TimerButton = {
   id: string;
   isOn: boolean;
   ms: number;
 };
 
-export type TimersContextType = {
-  timers: Timer[];
-  setTimers: React.Dispatch<React.SetStateAction<Timer[]>>;
+export type TimerButtonsContextType = {
+  timerButtons: TimerButton[];
+  setTimerButtons: React.Dispatch<React.SetStateAction<TimerButton[]>>;
 };
 
 export const defaultState = [
@@ -59,4 +59,6 @@ export const defaultState = [
   },
 ];
 
-export const TimersContext = createContext<TimersContextType | null>(null);
+export const TimerButtonsContext = createContext<TimerButtonsContextType | null>(
+  null
+);

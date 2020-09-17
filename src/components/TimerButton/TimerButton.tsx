@@ -26,7 +26,7 @@ const TimerButton: FC<Props> = ({
   const { minutes, seconds } = msToHMS(ms);
 
   return (
-    <StyledButton type="primary" block {...rest}>
+    <StyledButton id={`timerButton-${id}`} type="primary" block {...rest}>
       <Space direction="vertical">
         {isOn ? <StyledLoadingOutlined /> : <StyledFieldTimeOutlined />}
         <Text ellipsis={true}>

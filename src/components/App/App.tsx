@@ -2,24 +2,41 @@ import React, { useState, useMemo } from 'react';
 import TimerButtons from '../TimerButtons/TimerButtons';
 import { Normalize } from 'styled-normalize';
 import { AppContainer, GlobalStyles } from './App.sc';
-import { TimersContext, defaultState } from '../../contexts/TimersContext';
+import {
+  TimerButtonsContext,
+  defaultState as defaultStateTimerButtons,
+} from '../../contexts/TimerButtonsContext';
+import {
+  TimerEditorContext,
+  defaultState as defaultStateTimerEditor,
+} from '../../contexts/TimerEditorContext';
 import 'antd/dist/antd.css';
 
 const App = () => {
-  const [timers, setTimers] = useState(defaultState);
-  const providerValue = useMemo(() => ({ timers, setTimers }), [
-    timers,
-    setTimers,
-  ]);
+  const [timerButtons, setTimerButtons] = useState(defaultStateTimerButtons);
+  const providerTimerButtons = useMemo(
+    () => ({ timerButtons, setTimerButtons }),
+    [timerButtons, setTimerButtons]
+  );
+
+  const [timerEditorIsVisible, setTimerEditorIsVisible] = useState(
+    defaultStateTimerEditor
+  );
+  const providerTimerEditorIsVisible = useMemo(
+    () => ({ timerEditorIsVisible, setTimerEditorIsVisible }),
+    [timerEditorIsVisible, setTimerEditorIsVisible]
+  );
 
   return (
     <>
       <Normalize />
       <GlobalStyles />
       <AppContainer>
-        <TimersContext.Provider value={providerValue}>
-          <TimerButtons />
-        </TimersContext.Provider>
+        <TimerButtonsContext.Provider value={providerTimerButtons}>
+          <TimerEditorContext.Provider value={providerTimerEditorIsVisible}>
+            <TimerButtons />
+          </TimerEditorContext.Provider>
+        </TimerButtonsContext.Provider>
       </AppContainer>
     </>
   );

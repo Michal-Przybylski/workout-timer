@@ -1,6 +1,6 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, MouseEvent } from 'react';
 import TimerButton from '../TimerButton/TimerButton';
-import { TimersContext } from '../../contexts/TimersContext';
+import { TimerButtonsContext } from '../../contexts/TimerButtonsContext';
 import {
   shouldDisable,
   handleOnClick,
@@ -10,15 +10,17 @@ import GridRow from '../GridRow/GridRow';
 import GridCols from '../GridCols/GridCols';
 
 const TimerButtons: FC = () => {
-  const { timers, setTimers } = useContext(TimersContext)!;
+  const { timerButtons, setTimerButtons } = useContext(TimerButtonsContext)!;
 
-  const ArrayOfTimerButtons = timers.map((timer) => (
+  const ArrayOfTimerButtons = timerButtons.map((timerButton) => (
     <TimerButton
-      key={timer.id}
-      onClick={() => handleOnClick(timers, setTimers, timer.id)}
-      onComplete={() => handleOnComplete(timers, setTimers)}
-      disabled={shouldDisable(timers, timer.isOn)}
-      {...timer}
+      key={timerButton.id}
+      onClick={(e: MouseEvent<HTMLButtonElement>) =>
+        handleOnClick(e, timerButtons, setTimerButtons)
+      }
+      onComplete={() => handleOnComplete(timerButtons, setTimerButtons)}
+      disabled={shouldDisable(timerButtons, timerButton.isOn)}
+      {...timerButton}
     ></TimerButton>
   ));
 

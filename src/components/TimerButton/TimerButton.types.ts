@@ -1,8 +1,8 @@
 import { ButtonProps } from 'antd/lib/button';
 import { CountdownProps } from 'react-countdown';
-import { Timer } from '../../contexts/TimersContext';
+import { TimerButton } from '../../contexts/TimerButtonsContext';
 
 export type Props = ButtonProps &
-  Timer & {
+  TimerButton & {
     onComplete: CountdownProps['onComplete'];
   };

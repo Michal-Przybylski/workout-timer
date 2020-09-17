@@ -1,8 +1,12 @@
-import { TimersContextType, Timer } from '../../contexts/TimersContext';
+import { MouseEvent } from 'react';
+import {
+  TimerButtonsContextType,
+  TimerButton,
+} from '../../contexts/TimerButtonsContext';
 
 export const shouldDisable = (
-  timers: TimersContextType['timers'],
-  isOn: Timer['isOn']
+  timers: TimerButtonsContextType['timerButtons'],
+  isOn: TimerButton['isOn']
 ) => {
   if (isOn) {
     return false;
@@ -14,22 +18,32 @@ export const shouldDisable = (
   return true;
 };
 
+const getClickedTimerId = (
+  e: MouseEvent<HTMLButtonElement>
+): TimerButton['id'] => {
+  const clickedTimerId = e.currentTarget.id.substr(
+    e.currentTarget.id.indexOf('-') + 1
+  );
+  return clickedTimerId;
+};
+
 export const handleOnClick = (
-  timers: TimersContextType['timers'],
-  setTimers: TimersContextType['setTimers'],
-  id: Timer['id']
+  e: MouseEvent<HTMLButtonElement>,
+  timers: TimerButtonsContextType['timerButtons'],
+  setTimers: TimerButtonsContextType['setTimerButtons']
 ) => {
+  getClickedTimerId(e);
   setTimers(
     timers.map((timer) => ({
       ...timer,
-      isOn: timer.id === id ? !timer.isOn : timer.isOn,
+      isOn: timer.id === getClickedTimerId(e) ? !timer.isOn : timer.isOn,
     }))
   );
 };
 
 export const handleOnComplete = (
-  timers: TimersContextType['timers'],
-  setTimers: TimersContextType['setTimers']
+  timers: TimerButtonsContextType['timerButtons'],
+  setTimers: TimerButtonsContextType['setTimerButtons']
 ) => {
   setTimers(
     timers.map((timer) => ({
