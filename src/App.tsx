@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components/macro';
 import TimerButton from './components/TimerButton/TimerButton';
 import { Normalize } from 'styled-normalize';
 import GridRow from './components/GridRow/GridRow';
