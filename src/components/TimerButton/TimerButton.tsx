@@ -1,9 +1,15 @@
 import React, { FC, useState } from 'react';
 import Countdown, { CountdownProps } from 'react-countdown';
-import { FieldTimeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { msToHMS } from '../../utils/common';
-import { Timebox, StyledButton } from './TimerButton.sc';
+import {
+  StyledButton,
+  StyledFieldTimeOutlined,
+  StyledLoadingOutlined,
+} from './TimerButton.sc';
 import { Props } from './TimerButton.types';
+import { Space, Typography } from 'antd';
+
+const { Text } = Typography;
 
 const countdownRenderer: CountdownProps['renderer'] = ({
   minutes,
@@ -17,21 +23,25 @@ const TimerButton: FC<Props> = ({ ms = 30000, ...rest }) => {
   return (
     <StyledButton
       type="primary"
-      icon={isTimerOn ? <LoadingOutlined /> : <FieldTimeOutlined />}
       onClick={() => setIsTimerOn(!isTimerOn)}
       block
       {...rest}
     >
-      <Timebox>
-        {minutes} min {seconds} sec
-      </Timebox>
-      {isTimerOn && (
-        <Countdown
-          date={Date.now() + ms}
-          renderer={countdownRenderer}
-          onComplete={() => setIsTimerOn(false)}
-        />
-      )}
+      <Space direction="vertical" size="small">
+        {isTimerOn ? <StyledLoadingOutlined /> : <StyledFieldTimeOutlined />}
+        <Text>
+          {minutes} min {seconds} sec
+        </Text>
+        {isTimerOn ? (
+          <Countdown
+            date={Date.now() + ms}
+            renderer={countdownRenderer}
+            onComplete={() => setIsTimerOn(false)}
+          />
+        ) : (
+          <Text>Start</Text>
+        )}
+      </Space>
     </StyledButton>
   );
 };
