@@ -22,4 +22,7 @@ export const StyledButton = styled(Button)`
   &::before {
     opacity: 0;
   }
+  &[disabled] {
+    background: #1890ffad;
+  }
 `;

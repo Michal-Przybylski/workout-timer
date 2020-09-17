@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Countdown, { CountdownProps } from 'react-countdown';
 import { msToHMS } from '../../utils/common';
 import {
@@ -16,27 +16,27 @@ const countdownRenderer: CountdownProps['renderer'] = ({
   seconds,
 }) => <span>{minutes * 60 + seconds} sec</span>;
 
-const TimerButton: FC<Props> = ({ ms = 30000, ...rest }) => {
-  const [isTimerOn, setIsTimerOn] = useState(false);
+const TimerButton: FC<Props> = ({
+  ms = 30000,
+  isOn = false,
+  id,
+  onComplete,
+  ...rest
+}) => {
   const { minutes, seconds } = msToHMS(ms);
 
   return (
-    <StyledButton
-      type="primary"
-      onClick={() => setIsTimerOn(!isTimerOn)}
-      block
-      {...rest}
-    >
-      <Space direction="vertical" size="small">
-        {isTimerOn ? <StyledLoadingOutlined /> : <StyledFieldTimeOutlined />}
-        <Text>
+    <StyledButton type="primary" block {...rest}>
+      <Space direction="vertical">
+        {isOn ? <StyledLoadingOutlined /> : <StyledFieldTimeOutlined />}
+        <Text ellipsis={true}>
           {minutes} min {seconds} sec
         </Text>
-        {isTimerOn ? (
+        {isOn ? (
           <Countdown
             date={Date.now() + ms}
             renderer={countdownRenderer}
-            onComplete={() => setIsTimerOn(false)}
+            onComplete={onComplete}
           />
         ) : (
           <Text>Start</Text>
