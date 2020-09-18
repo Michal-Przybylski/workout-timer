@@ -41,7 +41,7 @@ export const handleOnClick = (
   );
 };
 
-export const handleOnComplete = (
+export const resetTimer = (
   timers: TimerButtonsContextType['timerButtons'],
   setTimers: TimerButtonsContextType['setTimerButtons']
 ) => {

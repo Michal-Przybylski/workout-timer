@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import TimerButtons from '../TimerButtons/TimerButtons';
 import { Normalize } from 'styled-normalize';
 import { AppContainer, GlobalStyles } from './App.sc';
 import {
@@ -10,6 +9,8 @@ import {
   TimerEditorContext,
   defaultState as defaultStateTimerEditor,
 } from '../../contexts/TimerEditorContext';
+import TimerButtons from '../TimerButtons/TimerButtons';
+import TimerEditor from '../TimerEditor/TimerEditor';
 import 'antd/dist/antd.css';
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <TimerButtonsContext.Provider value={providerTimerButtons}>
           <TimerEditorContext.Provider value={providerTimerEditorIsVisible}>
             <TimerButtons />
+            <TimerEditor />
           </TimerEditorContext.Provider>
         </TimerButtonsContext.Provider>
       </AppContainer>
