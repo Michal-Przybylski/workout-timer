@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Countdown, { CountdownProps } from 'react-countdown';
-import { msToHMS } from '../../utils/common';
+import { msToHMS } from '../../utils/msToHMS';
 import {
   StyledButton,
   StyledFieldTimeOutlined,
