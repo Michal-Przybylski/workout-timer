@@ -3,6 +3,7 @@ import {
   TimerButtonsContextType,
   TimerButton,
 } from '../../contexts/TimerButtonsContext';
+import { TargetType } from '../../utils/useLongPress';
 
 export const shouldDisable = (
   timers: TimerButtonsContextType['timerButtons'],
@@ -18,35 +19,40 @@ export const shouldDisable = (
   return true;
 };
 
-const getClickedTimerId = (
-  e: MouseEvent<HTMLButtonElement>
+export const getClickedTimerId = (
+  currentTarget: TargetType
 ): TimerButton['id'] => {
-  const clickedTimerId = e.currentTarget.id.substr(
-    e.currentTarget.id.indexOf('-') + 1
+  const clickedTimerId = currentTarget.id.substr(
+    currentTarget.id.indexOf('-') + 1
   );
   return clickedTimerId;
 };
 
 export const handleOnClick = (
-  e: MouseEvent<HTMLButtonElement>,
-  timers: TimerButtonsContextType['timerButtons'],
-  setTimers: TimerButtonsContextType['setTimerButtons']
+  e: MouseEvent<HTMLElement>,
+  timerButtons: TimerButtonsContextType['timerButtons'],
+  setTimerButtons: TimerButtonsContextType['setTimerButtons']
 ) => {
-  getClickedTimerId(e);
-  setTimers(
-    timers.map((timer) => ({
-      ...timer,
-      isOn: timer.id === getClickedTimerId(e) ? !timer.isOn : timer.isOn,
-    }))
+  const clickedTimerId = getClickedTimerId(e.currentTarget);
+  setTimerButtons(
+    timerButtons.map((timer) => {
+      if (timer.id === clickedTimerId) {
+        return {
+          ...timer,
+          isOn: !timer.isOn,
+        };
+      }
+      return timer;
+    })
   );
 };
 
 export const resetTimer = (
-  timers: TimerButtonsContextType['timerButtons'],
-  setTimers: TimerButtonsContextType['setTimerButtons']
+  timerButtons: TimerButtonsContextType['timerButtons'],
+  setTimerButtons: TimerButtonsContextType['setTimerButtons']
 ) => {
-  setTimers(
-    timers.map((timer) => ({
+  setTimerButtons(
+    timerButtons.map((timer) => ({
       ...timer,
       isOn: false,
     }))

@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  useContext,
-  MouseEventHandler,
-  MouseEvent,
-  TouchEvent,
-} from 'react';
+import React, { FC, useContext, MouseEventHandler } from 'react';
 import TimerButton from '../TimerButton/TimerButton';
 import { TimerButtonsContext } from '../../contexts/TimerButtonsContext';
 import { TimerEditorContext } from '../../contexts/TimerEditorContext';
@@ -12,21 +6,25 @@ import {
   shouldDisable,
   handleOnClick,
   resetTimer,
+  getClickedTimerId,
 } from './TimerButtons.helpers';
 import GridRow from '../GridRow/GridRow';
 import GridCols from '../GridCols/GridCols';
-import { useLongPress } from '../../utils/useLongPress';
+import { useLongPress, TargetType } from '../../utils/useLongPress';
 
 const TimerButtons: FC = () => {
   const { timerButtons, setTimerButtons } = useContext(TimerButtonsContext)!;
-  const { setTimerEditorIsVisible } = useContext(TimerEditorContext)!;
+  const { setTimerEditorData } = useContext(TimerEditorContext)!;
 
-  const onLongPress = (e: MouseEvent | TouchEvent) => {
+  const onLongPress = (currentTarget: TargetType) => {
     resetTimer(timerButtons, setTimerButtons);
-    setTimerEditorIsVisible(true);
+    setTimerEditorData({
+      visible: true,
+      timerId: getClickedTimerId(currentTarget),
+    });
   };
 
-  const onClick: MouseEventHandler<HTMLButtonElement> = (e) =>
+  const onClick: MouseEventHandler<HTMLElement> = (e) =>
     handleOnClick(e, timerButtons, setTimerButtons);
 
   const defaultOptions = {

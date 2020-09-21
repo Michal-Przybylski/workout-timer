@@ -1,7 +1,10 @@
 import styled, { createGlobalStyle } from 'styled-components/macro';
 
-export const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle<{ lockScroll: boolean }>`
   body {
+    width: unset;
+    height: unset;
+    ${(props) => (props.lockScroll ? 'overflow: hidden' : '')};
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

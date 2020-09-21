@@ -20,21 +20,21 @@ const App = () => {
     [timerButtons, setTimerButtons]
   );
 
-  const [timerEditorIsVisible, setTimerEditorIsVisible] = useState(
+  const [timerEditorData, setTimerEditorData] = useState(
     defaultStateTimerEditor
   );
-  const providerTimerEditorIsVisible = useMemo(
-    () => ({ timerEditorIsVisible, setTimerEditorIsVisible }),
-    [timerEditorIsVisible, setTimerEditorIsVisible]
+  const providertimerEditorData = useMemo(
+    () => ({ timerEditorData, setTimerEditorData }),
+    [timerEditorData, setTimerEditorData]
   );
 
   return (
     <>
       <Normalize />
-      <GlobalStyles />
+      <GlobalStyles lockScroll={timerEditorData.visible} />
       <AppContainer>
         <TimerButtonsContext.Provider value={providerTimerButtons}>
-          <TimerEditorContext.Provider value={providerTimerEditorIsVisible}>
+          <TimerEditorContext.Provider value={providertimerEditorData}>
             <TimerButtons />
             <TimerEditor />
           </TimerEditorContext.Provider>

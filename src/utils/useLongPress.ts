@@ -7,29 +7,37 @@ import {
   MouseEventHandler,
 } from 'react';
 
+export type TargetType =
+  | MouseEvent['currentTarget']
+  | TouchEvent['currentTarget'];
+
 export const useLongPress = (
-  onLongPress: (e: MouseEvent | TouchEvent) => void,
+  onLongPress: (eventTarget: TargetType) => void,
   onClick: MouseEventHandler,
   { shouldPreventDefault = true, delay = 300 } = {}
 ) => {
   const [longPressTriggered, setLongPressTriggered] = useState(false);
   const timeout = useRef<number>();
-  const target = useRef<EventTarget>();
+  const target = useRef<TargetType>();
 
   const start = useCallback(
     (event: MouseEvent | TouchEvent) => {
-      if (shouldPreventDefault && event.target) {
-        event.target.addEventListener(
+      if (shouldPreventDefault && event.currentTarget) {
+        event.currentTarget.addEventListener(
           'touchend',
           (preventDefault as unknown) as EventListener,
           {
             passive: false,
           }
         );
-        target.current = event.target;
+        target.current = event.currentTarget;
       }
       timeout.current = setTimeout(() => {
-        onLongPress(event);
+        if (target.current) {
+          // need to use saved event.currentTarget due to event changing
+          // to incorrect before calling onLongPress with it
+          onLongPress(target.current);
+        }
         setLongPressTriggered(true);
       }, delay);
     },
