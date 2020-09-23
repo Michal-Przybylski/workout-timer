@@ -1,6 +1,6 @@
 {
   "name": "workout-timer",
-  "version": "0.22.0",
+  "version": "0.22.1",
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

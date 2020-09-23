@@ -94,6 +94,7 @@ const TimerEditor: FC = () => {
       onCancel={handleOnCancel}
     >
       <TimePicker
+        inputReadOnly
         autoFocus
         hideDisabledOptions
         open={isOpenTimePicker}
