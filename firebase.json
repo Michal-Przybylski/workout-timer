@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": "build",
+    "site": "workouttimer-a5845",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
